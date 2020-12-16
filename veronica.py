@@ -16,6 +16,7 @@ import pyttsx3
 import pywhatkit
 import pyjokes
 import webbrowser
+import playsound
 
 listener = sr.Recognizer()
 engine = pyttsx3.init()
@@ -36,11 +37,14 @@ def take_command():
     try:
         with sr.Microphone() as source:
             print('listening...')
+            audio_file = 'blip.mp3'
+            playsound.playsound(audio_file)
             voice = listener.listen(source)
             command = listener.recognize_google(voice)
             command = command.lower()
         if 'veronica' in command:
             command = command.replace('veronica', '')
+
             print(command)
 
     except:
