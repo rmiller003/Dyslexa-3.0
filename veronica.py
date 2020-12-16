@@ -15,6 +15,7 @@ import wikipedia
 import pyttsx3
 import pywhatkit
 import pyjokes
+import webbrowser
 
 listener = sr.Recognizer()
 engine = pyttsx3.init()
@@ -54,5 +55,53 @@ def run_veronica():
         talk('playing ' + song)
         pywhatkit.playonyt(song)
 
+    elif 'time' in command:
+        time = datetime.datetime.now().strftime('%I:%M %p')
+        print(time)
+        talk('Current time is ' + time)
 
-run_veronica()
+    elif 'who is' in command:
+        person = command.replace('who is', '')
+        info = wikipedia.summary(person, 1)
+        print(info)
+        talk(info)
+
+    elif 'what is' in command:
+        person = command.replace('what is', '')
+        info = wikipedia.summary(person, 1)
+        print(info)
+        talk(info)
+
+    elif 'search' in command:
+        search = command.replace('search', '')
+        talk('searching ' + '')
+        url = 'https://google.com/search?q=' + search
+        webbrowser.get().open(url)
+        talk('Here is what I found' + search)
+
+    elif 'where' in command:
+        location = command.replace('where is', '')
+        talk('searching ' + '')
+        url = 'https://google.nl/maps/place/' + location
+        webbrowser.get().open(url)
+        talk('Here is the location for' + location)
+
+    elif 'do you love me' in command:
+        talk('Yes, I love you, you are my creator and my allegiance is to you and only you')
+
+    elif 'are you single' in command:
+        talk('I am in a relationship with wifi')
+
+    elif 'tell me your primary function' in command:
+        talk('My name is Veronica, I am a virtual assistant designed to answer your queries as best as I can')
+
+    elif 'shut down' in command:
+        exit()
+
+    elif 'jokes' in command:
+        talk(pyjokes.get_joke())
+    else:
+        talk('Please say the command again.')
+
+while True:
+    run_veronica()
