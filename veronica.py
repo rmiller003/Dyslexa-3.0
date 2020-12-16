@@ -100,6 +100,7 @@ def run_veronica():
         talk('My name is Veronica, I am a virtual assistant designed to answer your queries as best as I can')
 
     elif 'shut down' in command:
+        talk('okay, see you later')
         exit()
 
     elif 'jokes' in command:
