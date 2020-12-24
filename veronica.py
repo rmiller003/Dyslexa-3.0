@@ -23,10 +23,12 @@ engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
-
 engine.say('I am your virtual assistant veronica')
 engine.say('how can I help you')
+audio_file = 'electric.mp3'
+playsound.playsound(audio_file)
 engine.runAndWait()
+
 
 def talk(text):
     engine.say(text)
@@ -34,22 +36,24 @@ def talk(text):
 
 
 def take_command():
+    global command
     try:
         with sr.Microphone() as source:
             print('listening...')
-            audio_file = 'blip.mp3'
+            audio_file = 'robot.mp3'
             playsound.playsound(audio_file)
             voice = listener.listen(source)
             command = listener.recognize_google(voice)
             command = command.lower()
-        if 'veronica' in command:
-            command = command.replace('veronica', '')
+        if 'hey veronica' in command:
+            command = command.replace('hey veronica', '')
 
             print(command)
 
     except:
         pass
     return command
+
 
 def run_veronica():
     command = take_command()
@@ -99,14 +103,18 @@ def run_veronica():
     elif 'tell me your primary function' in command:
         talk('My name is Veronica, I am a virtual assistant designed to answer your queries as best as I can')
 
-    elif 'shut down' in command:
-        talk('okay, see you later')
-        exit()
-
     elif 'jokes' in command:
         talk(pyjokes.get_joke())
+
+    elif 'shut down' in command:
+        talk('okay, see you later')
+        audio_file = 'shutdown.mp3'
+        playsound.playsound(audio_file)
+        exit()
+
     else:
         talk('Please say the command again.')
+
 
 while True:
     run_veronica()
