@@ -54,6 +54,13 @@ def take_command():
         pass
     return command
 
+def date():
+    year = int(datetime.datetime.now().year)
+    month = int(datetime.datetime.now().month)
+    date = int(datetime.datetime.now().day)
+    talk(month)
+    talk(date)
+    talk(year)
 
 def run_veronica():
     command = take_command()
@@ -67,6 +74,10 @@ def run_veronica():
         time = datetime.datetime.now().strftime('%I:%M %p')
         print(time)
         talk('Current time is ' + time)
+
+    elif 'date' in command:
+        talk('The Current date is  ')
+        date()
 
     elif 'who is' in command:
         person = command.replace('who is', '')
