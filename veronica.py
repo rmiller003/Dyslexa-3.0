@@ -29,9 +29,11 @@ audio_file = 'electric.mp3'
 playsound.playsound(audio_file)
 engine.runAndWait()
 
+
 def talk(text):
     engine.say(text)
     engine.runAndWait()
+
 
 def take_command():
     global command
@@ -51,6 +53,7 @@ def take_command():
         pass
     return command
 
+
 def date():
     year = int(datetime.datetime.now().year)
     month = int(datetime.datetime.now().month)
@@ -58,6 +61,7 @@ def date():
     talk(month)
     talk(date)
     talk(year)
+
 
 def run_veronica():
     command = take_command()
@@ -128,6 +132,7 @@ def run_veronica():
 
     else:
         talk('Please say the command again.')
+
 
 while True:
     run_veronica()
