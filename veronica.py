@@ -5,7 +5,7 @@
 # pip install SpeechRecognition
 # pip install wikipedia
 # pip install pywhatkit
-# pip install pyjokes
+# pip install pyautogui
 # pip install pyttsx3
 # pip install datetime
 
@@ -14,26 +14,24 @@ import datetime
 import wikipedia
 import pyttsx3
 import pywhatkit
-import pyjokes
+import pyautogui
 import webbrowser
 import playsound
+import time
 
 listener = sr.Recognizer()
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
-engine.say('I am your virtual assistant veronica')
-engine.say('how can I help you')
+engine.say('Hello, I am veronica, How may I help you?')
 audio_file = 'electric.mp3'
 playsound.playsound(audio_file)
 engine.runAndWait()
 
-
 def talk(text):
     engine.say(text)
     engine.runAndWait()
-
 
 def take_command():
     global command
@@ -45,9 +43,8 @@ def take_command():
             voice = listener.listen(source)
             command = listener.recognize_google(voice)
             command = command.lower()
-        if 'hey veronica' in command:
-            command = command.replace('hey veronica', '')
-
+        if 'veronica' in command:
+            command = command.replace('veronica', '')
             print(command)
 
     except:
@@ -105,8 +102,8 @@ def run_veronica():
         webbrowser.get().open(url)
         talk('Here is the location for' + location)
 
-    elif 'do you love me' in command:
-        talk('Yes, I love you, you are my creator and my allegiance is to you and only you')
+    elif 'who do you answer to' in command:
+        talk('Robert Miller, he is my creator and my allegiance is to him and only him')
 
     elif 'are you single' in command:
         talk('I am in a relationship with wifi')
@@ -114,18 +111,23 @@ def run_veronica():
     elif 'tell me your primary function' in command:
         talk('My name is Veronica, I am a virtual assistant designed to answer your queries as best as I can')
 
-    elif 'jokes' in command:
-        talk(pyjokes.get_joke())
+    elif 'how do you feel' in command:
+        talk('I am operating at peak efficiency and look forward to to answering your queries as best as I can')
+
+    elif 'switch the window' in command:
+        pyautogui.keyDown("alt")
+        pyautogui.press("tab")
+        time.sleep(1)
+        pyautogui.keyUp("alt")
 
     elif 'shut down' in command:
-        talk('okay, see you later')
+        talk('Acknowledged, Im shutting down the system, Goodbuy')
         audio_file = 'shutdown.mp3'
         playsound.playsound(audio_file)
         exit()
 
     else:
         talk('Please say the command again.')
-
 
 while True:
     run_veronica()
