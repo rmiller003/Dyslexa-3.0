@@ -1,5 +1,5 @@
 # This is a Speech recognition Virtual assistant application using Google AI Voice modules
-# Written by Robert Miller in Python 3.9
+# Written by Robert Miller in Python 3.8
 
 # pip install pyaudio
 # pip install SpeechRecognition
