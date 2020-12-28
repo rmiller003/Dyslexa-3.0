@@ -17,7 +17,10 @@ import pywhatkit
 import pyautogui
 import webbrowser
 import playsound
-import time
+import pytime
+import python_math
+import wolframalpha
+client = wolframalpha.Client("WL78H2-UW5A2L3PRT")
 
 listener = sr.Recognizer()
 engine = pyttsx3.init()
@@ -25,7 +28,7 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
 engine.say('Hello, I am veronica, How may I help you?')
-audio_file = 'electric.mp3'
+audio_file = '95.mp3'
 playsound.playsound(audio_file)
 engine.runAndWait()
 
@@ -40,7 +43,7 @@ def take_command():
     try:
         with sr.Microphone() as source:
             print('listening...')
-            audio_file = 'robot.mp3'
+            audio_file = 'science.mp3'
             playsound.playsound(audio_file)
             voice = listener.listen(source)
             command = listener.recognize_google(voice)
@@ -53,6 +56,8 @@ def take_command():
         pass
     return command
 
+def sleep():
+    sleep = 1
 
 def date():
     year = int(datetime.datetime.now().year)
@@ -79,6 +84,7 @@ def run_veronica():
     elif 'date' in command:
         talk('The Current date is  ')
         date()
+
 
     elif 'who is' in command:
         person = command.replace('who is', '')
@@ -121,7 +127,7 @@ def run_veronica():
     elif 'switch the window' in command:
         pyautogui.keyDown("alt")
         pyautogui.press("tab")
-        time.sleep(1)
+        pytime.sleep(1)
         pyautogui.keyUp("alt")
 
     elif 'shut down' in command:
@@ -136,3 +142,4 @@ def run_veronica():
 
 while True:
     run_veronica()
+
