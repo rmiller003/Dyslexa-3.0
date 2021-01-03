@@ -18,9 +18,6 @@ import pyautogui
 import webbrowser
 import playsound
 import pytime
-import python_math
-import wolframalpha
-client = wolframalpha.Client("WL78H2-UW5A2L3PRT")
 
 listener = sr.Recognizer()
 engine = pyttsx3.init()
@@ -59,14 +56,26 @@ def take_command():
 def sleep():
     sleep = 1
 
+def time_():
+    Time=datetime.datetime.now().strftime('%I:%M %p')
+    talk("The current time is")
+    talk(Time)
+
 def date():
     year = int(datetime.datetime.now().year)
     month = int(datetime.datetime.now().month)
     date = int(datetime.datetime.now().day)
+    talk("The current date is")
     talk(month)
     talk(date)
     talk(year)
 
+def wishme():
+    talk("Welcome back Robert")
+    time_()
+    date()
+
+wishme()
 
 def run_veronica():
     command = take_command()
@@ -84,7 +93,6 @@ def run_veronica():
     elif 'date' in command:
         talk('The Current date is  ')
         date()
-
 
     elif 'who is' in command:
         person = command.replace('who is', '')
