@@ -1,13 +1,6 @@
 # This is a Speech recognition Virtual assistant application using Google AI Voice modules
 # Written by Robert Miller in Python 3.8
 
-# pip install pyaudio
-# pip install SpeechRecognition
-# pip install wikipedia
-# pip install pywhatkit
-# pip install pyautogui
-# pip install pyttsx3
-# pip install datetime
 
 import speech_recognition as sr
 import datetime
@@ -18,13 +11,16 @@ import pyautogui
 import webbrowser
 import playsound
 import pytime
+import json
+import requests
+from urllib.request import urlopen
 
 listener = sr.Recognizer()
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 
-engine.say('Hello, I am veronica, How may I help you?')
+engine.say('Hello, my name is veronica')
 audio_file = '95.mp3'
 playsound.playsound(audio_file)
 engine.runAndWait()
@@ -74,6 +70,21 @@ def wishme():
     talk("Welcome back Robert")
     time_()
     date()
+
+# Greetings
+
+    hour = datetime.datetime.now().hour
+
+    if hour>=6 and hour<12:
+        talk("Good Morning Robert")
+    elif hour>=12 and hour<18:
+        talk("Good Afternoon Robert")
+    elif hour>=18 and hour<24:
+        talk("Good Evening Robert")
+    else:
+        talk("Good Night Robert")
+
+    talk("Veronica at your service. Please tell me how I can help you today?")
 
 wishme()
 
@@ -137,6 +148,22 @@ def run_veronica():
         pyautogui.press("tab")
         pytime.sleep(1)
         pyautogui.keyUp("alt")
+
+    elif 'news' in command:
+        jsonObj = urlopen("https://newsapi.org/v2/top-headlines?country=us&catagory=technology&apiKey=3b428458d28f453eabf5b58a7f0a3ed9")
+        data = json.load(jsonObj)
+        i = 1
+
+        talk('Here are the latest headlines from the Tech Industry')
+        print('=============LATEST HEADLINES============='+'\n')
+        for item in data['articles']:
+            print(str(i)+'. '+item['title']+'\n')
+            print(item['description']+'\n')
+            talk(item['title'])
+            i += 1
+
+        # except Exception as e:
+        #         print(str(e))
 
     elif 'shut down' in command:
         talk('Acknowledged, Im shutting down the system, Goodbuy')
